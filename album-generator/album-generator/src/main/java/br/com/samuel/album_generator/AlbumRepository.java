@@ -6,8 +6,5 @@ import java.util.List;
 
 @Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
-    // Pronto.
-    // Agora temos métodos como: save(album), findById(id), findAll(), delete(album)
     List<Album> findAllByGenreId(Long genreId);
-    // Tudo de graça!
 }

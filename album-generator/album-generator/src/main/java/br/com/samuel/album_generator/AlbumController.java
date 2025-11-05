@@ -15,16 +15,12 @@ import java.util.List;
 @RequestMapping("/api")
 public class AlbumController {
 
-    // 1. O CONTROLLER AGORA SÓ CONHECE O SERVICE!
-    // Adeus, repositórios!
     @Autowired
     private AlbumService albumService;
 
-    // --- ENDPOINTS DE GÊNERO ---
 
     @PostMapping("/genres")
     public ResponseEntity<Genre> createGenre(@RequestBody Genre genre) {
-        // O Controller só repassa o pedido e o resultado
         Genre savedGenre = albumService.createGenre(genre);
         return ResponseEntity.status(201).body(savedGenre);
     }
@@ -34,8 +30,6 @@ public class AlbumController {
         List<Genre> genres = albumService.getAllGenres();
         return ResponseEntity.ok(genres);
     }
-
-    // --- ENDPOINTS DE ÁLBUM ---
     
     @PostMapping("/albums")
     public ResponseEntity<Album> createAlbum(@RequestBody Album album) {
@@ -49,18 +43,15 @@ public class AlbumController {
         return ResponseEntity.ok(albums);
     }
 
-    // --- ENDPOINT DE SORTEIO ---
 
     @GetMapping("/albums/random")
     public ResponseEntity<Album> getRandomAlbumByGenre(@RequestParam Long genreId) {
-        // 1. O Controller só pede o sorteio
         Album randomAlbum = albumService.getRandomAlbumByGenre(genreId);
 
-        // 2. O Controller ainda é responsável pela RESPOSTA HTTP
         if (randomAlbum == null) {
-            return ResponseEntity.notFound().build(); // Retorna 404
+            return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.ok(randomAlbum); // Retorna 200 com o álbum
+            return ResponseEntity.ok(randomAlbum);
         }
     }
 }

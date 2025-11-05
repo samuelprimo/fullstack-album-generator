@@ -4,16 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data; // Importa a mágica do Lombok
+import lombok.Data; 
 
-@Data   // <-- Mágica do Lombok: cria getters, setters, construtores, etc.
-@Entity // <-- Diz ao JPA: "Esta classe é uma tabela no banco de dados"
+@Data
+@Entity
 public class Genre {
 
-    @Id // <-- Diz que este é o campo de "ID" (chave primária)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // <-- Diz ao banco para gerar o ID automaticamente (1, 2, 3...)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // Ex: "Rock", "Samba", "Eletrônica"
+    private String name; // "Rock", "Samba", "Eletrônica"
 
 }

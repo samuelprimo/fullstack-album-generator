@@ -15,12 +15,12 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;    // Ex: "The Dark Side of the Moon"
-    private String artist;   // Ex: "Pink Floyd"
-    private String coverUrl; // Ex: "https://minhacapa.com/imagem.png"
+    private String title; 
+    private String artist;
+    private String coverUrl; 
 
-    // Esta é a parte importante:
-    @ManyToOne // <-- Diz ao JPA: "MUITOS Álbuns podem pertencer a UM Gênero"
-    private Genre genre; // Isso vai criar a relação entre as tabelas
+    
+    @ManyToOne
+    private Genre genre;
 
 }
