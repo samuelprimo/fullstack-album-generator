@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-// Vamos adicionar um CSS básico para não ficar tão feio
-import './App.css'; // Vamos criar este arquivo
+import './App.css'; 
 
 function App() {
-  // Estados que já tínhamos:
-  const [genres, setGenres] = useState([]); // Mudei o nome de 'data' para 'genres'
+  const [genres, setGenres] = useState([]);
   const [loadingGenres, setLoadingGenres] = useState(true);
 
-  // 1. NOVOS ESTADOS para o álbum sorteado
-  const [selectedAlbum, setSelectedAlbum] = useState(null); // Vai guardar o objeto do álbum
-  const [loadingAlbum, setLoadingAlbum] = useState(false); // Aviso de "sorteando..."
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [loadingAlbum, setLoadingAlbum] = useState(false);
 
-  // --- BUSCA INICIAL DE GÊNEROS (Quase igual a antes) ---
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -30,22 +26,19 @@ function App() {
     fetchGenres();
   }, []);
 
-  // 2. NOVA FUNÇÃO: Chamada quando o usuário clica em um gênero
   const handleGenreClick = async (genreId) => {
     try {
-      setLoadingAlbum(true);    // Mostra "Sorteando..."
-      setSelectedAlbum(null); // Limpa o álbum anterior
+      setLoadingAlbum(true);
+      setSelectedAlbum(null);
 
-      // 3. A CHAMADA DA API DE SORTEIO!
       const response = await fetch(`http://localhost:8080/api/albums/random?genreId=${genreId}`);
       
       if (response.status === 404) {
-        // 404 Not Found (sem álbuns para esse gênero)
         alert("Ops! Não temos álbuns cadastrados para este gênero.");
         setSelectedAlbum(null);
       } else if (response.ok) {
         const album = await response.json();
-        setSelectedAlbum(album); // Guarda o álbum sorteado no estado
+        setSelectedAlbum(album);
       } else {
         throw new Error("Falha na requisição");
       }
@@ -54,18 +47,15 @@ function App() {
       console.error("Erro ao sortear álbum:", error);
       alert("Ocorreu um erro ao sortear.");
     } finally {
-      setLoadingAlbum(false); // Esconde "Sorteando..."
+      setLoadingAlbum(false);
     }
   };
 
-  // --- RENDERIZAÇÃO (O que o usuário vê) ---
   
-  // 4. Se estiver carregando os gêneros, mostre isso
   if (loadingGenres) {
     return <div className="container"><h1>Carregando gêneros...</h1></div>;
   }
 
-  // 5. O HTML (JSX) principal
   return (
     <div className="container">
       <header>
@@ -76,18 +66,17 @@ function App() {
       <section className="genre-list">
         <h2>Gêneros</h2>
         {genres.map(genre => (
-          // 6. Botões que chamam nossa nova função
           <button 
             key={genre.id} 
             onClick={() => handleGenreClick(genre.id)}
-            disabled={loadingAlbum} // Desabilita o botão enquanto sorteia
+            disabled={loadingAlbum}
           >
             {genre.name}
           </button>
         ))}
       </section>
 
-      {/* 7. ÁREA DO RESULTADO (O Sorteio) */}
+      {/*(Sorteio)*/}
       <section className="album-result">
         {loadingAlbum && <h2>Sorteando...</h2>}
         
