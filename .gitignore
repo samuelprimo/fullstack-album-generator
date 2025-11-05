@@ -1,0 +1,25 @@
+# Ignora logs e arquivos de IDE
+.vscode/
+.idea/
+*.log
+*.iml
+
+# --- Backend: Java / Maven (album-generator) ---
+# Ignora a pasta de build
+album-generator/target/
+
+# Ignora arquivos do wrapper do Maven
+album-generator/.mvn/
+album-generator/mvnw
+album-generator/mvnw.cmd
+
+# --- Frontend: React / Vite (album-generator-ui) ---
+# Ignora a pasta de dependências (milhares de arquivos)
+album-generator-ui/node_modules/
+
+# Ignora a pasta de build do front-end
+album-generator-ui/dist/
+album-generator-ui/.vite/
+
+# Ignora arquivos de ambiente (se você tiver)
+.env

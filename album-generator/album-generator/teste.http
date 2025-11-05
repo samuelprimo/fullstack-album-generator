@@ -1,0 +1,71 @@
+### ======================
+### 1. CADASTRAR GÊNEROS
+### ======================
+POST http://localhost:8080/api/genres
+Content-Type: application/json
+
+{ "name": "Rock" }
+
+###
+POST http://localhost:8080/api/genres
+Content-Type: application/json
+
+{ "name": "Samba" }
+
+
+### ======================
+### 2. CADASTRAR ÁLBUNS
+### ======================
+
+### Álbuns de Rock (genreId: 1)
+POST http://localhost:8080/api/albums
+Content-Type: application/json
+
+{
+    "title": "The Dark Side of the Moon",
+    "artist": "Pink Floyd",
+    "coverUrl": "...",
+    "genre": { "id": 1 }
+}
+
+###
+POST http://localhost:8080/api/albums
+Content-Type: application/json
+
+{
+    "title": "Led Zeppelin IV",
+    "artist": "Led Zeppelin",
+    "coverUrl": "...",
+    "genre": { "id": 1 }
+}
+
+### Álbuns de Samba (genreId: 2)
+POST http://localhost:8080/api/albums
+Content-Type: application/json
+
+{
+    "title": "Cartola (1976)",
+    "artist": "Cartola",
+    "coverUrl": "...",
+    "genre": { "id": 2 }
+}
+
+
+### ======================
+### 3. TESTAR O SORTEIO!
+### ======================
+
+### Sortear um álbum de ROCK (id: 1)
+# Clique em "Send Request" várias vezes.
+# Deve alternar entre Pink Floyd e Led Zeppelin
+GET http://localhost:8080/api/albums/random?genreId=1
+
+###
+### Sortear um álbum de SAMBA (id: 2)
+# Só deve retornar Cartola, pois só há um
+GET http://localhost:8080/api/albums/random?genreId=2
+
+###
+### Tentar sortear de um gênero que não existe (id: 99)
+# Deve retornar um erro 404 Not Found
+GET http://localhost:8080/api/albums/random?genreId=99
